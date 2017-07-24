@@ -23,7 +23,7 @@ Interface to Python 2.7 from SAS/WPS
     ```              5 = 5*x**2 + 5*y**2  ```
     ```              1 = x**2 + y**2    (unit circle)  ```
     ```    ```
-    ```    ```
+    ```    us a period in position 1 for indented python code see my SAS-L posts```
     ```  see  ```
     ```  https://goo.gl/HVcsMf  ```
     ```  https://stackoverflow.com/questions/45130525/  ```
