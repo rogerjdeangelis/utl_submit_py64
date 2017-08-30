@@ -1,0 +1,30 @@
+%macro utl_submit_py64(pgm)/des="Semi colon separated set of py commands";
+  * write the program to a temporary file;
+  filename py_pgm "%sysfunc(pathname(work))/py_pgm.py" lrecl=32766 recfm=v;
+  data _null_;
+    length pgm  $32755 cmd $1024;
+    file py_pgm ;
+    pgm=&pgm;
+    semi=countc(pgm,';');
+      do idx=1 to semi;
+        cmd=cats(scan(pgm,idx,';'));
+        if cmd=:'. ' then
+           cmd=trim(substr(cmd,2));
+           put cmd $char384.;
+           putlog cmd $char384.;
+      end;
+  run;
+
+  run;quit;
+  %let _loc=%sysfunc(pathname(py_pgm));
+  %put &_loc;
+  filename rut pipe  "C:\Python27/python.exe &_loc";
+  data _null_;
+    file print;
+    infile rut;
+    input;
+    put _infile_;
+  run;
+  filename rut clear;
+  filename py_pgm clear;
+%mend utl_submit_py64;
